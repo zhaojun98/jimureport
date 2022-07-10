@@ -1,0 +1,85 @@
+server:
+  port: 8091
+spring:
+  #配置静态资源
+  mvc:
+    static-path-pattern: /**
+    throw-exception-if-no-handler-found: true
+  resource:
+    static-locations: classpath:/static/
+    add-mappings: false
+  redis:
+    host: 192.168.3.18
+    port: 63791
+    password: jssm123
+    timeout: 10s
+  #配置数据库
+  datasource:
+    dynamic:
+      primary: gla
+      strict: false
+      datasource:
+#        master:
+#          url: jdbc:mysql://localhost:3306/jimureport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+#          username: root
+#          password: 123456
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#        shanj:
+#          url: jdbc:mysql://localhost:3306/jimureport?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+#          username: root
+#          password: 123456
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+        gla:
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://192.168.2.104:5432/jimureport?characterEncodeing=utf8&stringtype=unspecified&TimeZone=Asia/Shanghai
+          username: postgres
+          password: a1234567
+
+token:
+  header: token
+  secret: com.example
+  expireTime: 30
+
+#Minidao配置
+minidao :
+  base-package: org.jeecg.modules.jmreport.*
+#JimuReport[上传配置]
+jeecg :
+  jmreport:
+    #自定义项目前缀
+    customPrePath:
+    #预览分页自定义
+    pageSize:
+      - 100
+      - 200
+  # local|minio|alioss
+  uploadType: local
+  # local
+  path :
+    #文件路径
+    upload: /opt/upload
+  # alioss
+  oss:
+    endpoint: ??
+    accessKey: ??
+    secretKey: ??
+    bucketName: jimureport
+  # minio
+  minio:
+    minio_url: http://minio.jeecg.com
+    minio_name: ??
+    minio_pass: ??
+    bucketName: ??
+#输出sql日志
+logging:
+  level:
+    org.jeecg.modules.jmreport : info
+
+mybatis-plus:
+  typeAliasesPackage: com.example.**.model
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  global-config:
+    db-config:
+#      refresh_mapper: true
+      capital-mode: true
